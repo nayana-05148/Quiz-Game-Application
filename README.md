@@ -18,14 +18,8 @@ The Quiz Game Application is a responsive web-based quiz built using HTML, CSS, 
 - JavaScript (ES6)
 
 
-## 📷 Output
-- Quiz home screen
-- Multiple-choice questions
-- Correct/Wrong answer indication
-- Final score with Restart button
 
 
-
-## 👩‍💻 Developed By
+##Author
 **Nayana M**
 
