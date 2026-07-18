@@ -21,5 +21,6 @@ The Quiz Game Application is a responsive web-based quiz built using HTML, CSS, 
 
 
 ##Author
+
 **Nayana M**
 
