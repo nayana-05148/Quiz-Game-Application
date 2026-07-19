@@ -11,6 +11,15 @@ The Quiz Game Application is a responsive web-based quiz built using HTML, CSS, 
 - Final score display
 - Restart Quiz functionality
 - Responsive and user-friendly interface
+  
+  ## Project Structure
+  index.html
+  style.css
+  app.js
+  questions.js
+  sound.js
+  confetti.js
+  
 
 ## 🛠️ Technologies Used
 - HTML5
