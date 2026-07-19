@@ -1,26 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz Game</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quiz Quest - A premium, interactive quiz game application with categories, difficulty settings, local leaderboards, and custom quiz builder.">
+  <title>Quiz Quest - Premium Trivia Game</title>
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-theme">
+  
+  <!-- Ambient background glow particles -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
 
-<div class="container">
-    <div class="quiz-box">
-        <h1>Quiz Game</h1>
+  <div class="app-container">
+    <!-- Header Control Bar -->
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">✨</span>
+        <h1>Quiz<span>Quest</span></h1>
+      </div>
+      <div class="header-controls">
+        <button id="btn-theme" class="icon-btn" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button id="btn-mute" class="icon-btn" title="Mute/Unmute Sounds" aria-label="Toggle Sound">
+          <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg class="sound-off-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
 
-        <h2 id="question">Question</h2>
+    <!-- Main Screens Container -->
+    <main class="screens-container">
+      
+      <!-- SCREEN 1: WELCOME/MENU SCREEN -->
+      <section id="screen-menu" class="screen active">
+        <div class="hero-section">
+          <h2>Test Your Brain Power!</h2>
+          <p>Embark on an interactive trivia challenge with dynamic lifelines, scoring multipliers, and custom quizzes.</p>
+        </div>
 
-        <div id="answer-buttons" class="btn-container"></div>
+        <div class="settings-grid">
+          <!-- Categories Selection -->
+          <div class="settings-card">
+            <h3>Select Category</h3>
+            <div class="categories-grid" id="categories-container">
+              <button class="category-btn active" data-category="all">
+                <span class="cat-icon">🌐</span>
+                <span class="cat-name">All Topics</span>
+              </button>
+              <button class="category-btn" data-category="general">
+                <span class="cat-icon">🧠</span>
+                <span class="cat-name">General Knowledge</span>
+              </button>
+              <button class="category-btn" data-category="science">
+                <span class="cat-icon">🔬</span>
+                <span class="cat-name">Science & Tech</span>
+              </button>
+              <button class="category-btn" data-category="history">
+                <span class="cat-icon">📜</span>
+                <span class="cat-name">History</span>
+              </button>
+              <button class="category-btn" data-category="geography">
+                <span class="cat-icon">🗺️</span>
+                <span class="cat-name">Geography</span>
+              </button>
+              <button class="category-btn" data-category="popculture">
+                <span class="cat-icon">🎬</span>
+                <span class="cat-name">Pop Culture</span>
+              </button>
+              <button class="category-btn" data-category="webdev">
+                <span class="cat-icon">💻</span>
+                <span class="cat-name">Web Dev</span>
+              </button>
+            </div>
+          </div>
 
-        <button id="next-btn">Next</button>
-    </div>
-</div>
+          <!-- Difficulty & Controls -->
+          <div class="settings-card flex-col justify-between">
+            <div>
+              <h3>Choose Difficulty</h3>
+              <div class="difficulty-selector">
+                <button class="diff-btn active" data-difficulty="any">Any</button>
+                <button class="diff-btn" data-difficulty="easy">Easy</button>
+                <button class="diff-btn" data-difficulty="medium">Medium</button>
+                <button class="diff-btn" data-difficulty="hard">Hard</button>
+              </div>
+            </div>
 
-<script src="script.js"></script>
+            <div class="menu-actions">
+              <button id="btn-start" class="btn primary-btn btn-glow">
+                <span>Start Quiz Game</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="btn-arrow">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <div class="secondary-actions">
+                <button id="btn-show-leaderboard" class="btn secondary-btn">
+                  <span>🏆 Leaderboards</span>
+                </button>
+                <button id="btn-show-creator" class="btn secondary-btn">
+                  <span>➕ Create Custom Quiz</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- SCREEN 2: GAMEPLAY SCREEN -->
+      <section id="screen-game" class="screen">
+        <div class="game-meta">
+          <div class="meta-item">
+            <span class="meta-label">Category:</span>
+            <span id="game-current-category" class="badge">Science & Tech</span>
+          </div>
+          <div class="meta-item text-center">
+            <span class="meta-label">Progress:</span>
+            <span id="game-progress-text" class="score-val">1 / 10</span>
+          </div>
+          <div class="meta-item text-right">
+            <span class="meta-label">Score:</span>
+            <span id="game-current-score" class="score-val accent-text">0000</span>
+          </div>
+        </div>
+
+        <!-- Progress track indicator dots -->
+        <div id="game-progress-dots" class="progress-dots-track">
+          <!-- Dots dynamically inserted here -->
+        </div>
+
+        <div class="question-container">
+          <!-- Timer and Question text -->
+          <div class="question-header">
+            <div class="timer-box">
+              <svg class="timer-svg" viewBox="0 0 80 80">
+                <circle class="timer-bg-circle" cx="40" cy="40" r="34"></circle>
+                <circle id="timer-progress-circle" class="timer-progress" cx="40" cy="40" r="34"></circle>
+              </svg>
+              <span id="timer-countdown" class="timer-val">15</span>
+            </div>
+            <h2 id="game-question-text" class="question-text">Loading question content...</h2>
+          </div>
+
+          <!-- Options Grid -->
+          <div id="game-options-grid" class="options-grid">
+            <!-- 4 Option buttons loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Lifelines & Actions Section -->
+        <div class="game-footer">
+          <div class="lifelines-container">
+            <h4>Lifelines</h4>
+            <div class="lifeline-buttons">
+              <button id="btn-lifeline-5050" class="btn lifeline-btn" title="Eliminate 2 wrong answers">
+                <span class="lifeline-icon">🌓</span> 50/50
+              </button>
+              <button id="btn-lifeline-time" class="btn lifeline-btn" title="Add 10 extra seconds">
+                <span class="lifeline-icon">⏳</span> +10s
+              </button>
+              <button id="btn-lifeline-poll" class="btn lifeline-btn" title="Simulate audience poll percentages">
+                <span class="lifeline-icon">📊</span> Audience Poll
+              </button>
+            </div>
+          </div>
+
+          <div class="action-container">
+            <button id="btn-next-question" class="btn primary-btn disabled-btn" disabled>
+              <span>Next Question</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Audience Poll Overlay Card -->
+        <div id="audience-poll-modal" class="poll-modal hidden">
+          <div class="poll-modal-content glass-panel">
+            <h3>Audience Poll Results</h3>
+            <div class="poll-bars-container" id="poll-bars-container">
+              <!-- Dynamically rendered progress bars -->
+            </div>
+            <button id="btn-close-poll" class="btn secondary-btn mt-4">Close Results</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: GAME OVER / RESULT SCREEN -->
+      <section id="screen-game-over" class="screen relative-container">
+        <!-- Canvas for Confetti -->
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+        <div class="result-header">
+          <h2 id="result-title">Congratulations!</h2>
+          <p id="result-subtitle">You completed the Quiz Quest trivia challenge.</p>
+        </div>
+
+        <!-- Score & Stats Dashboard -->
+        <div class="stats-dashboard">
+          <div class="stat-card score-stat">
+            <span class="stat-label">Final Score</span>
+            <h2 id="stat-final-score" class="accent-text">0</h2>
+          </div>
+          <div class="stats-subgrid">
+            <div class="stat-card">
+              <span class="stat-label">Accuracy</span>
+              <h3 id="stat-accuracy">0%</h3>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Lifelines Used</span>
+              <h3 id="stat-lifelines">0/3</h3>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Avg Speed</span>
+              <h3 id="stat-speed">0.0s</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- High Score Submission Form -->
+        <div id="high-score-form" class="high-score-box glass-panel hidden">
+          <h3>🏆 New High Score!</h3>
+          <p>Register your score on the leaderboard.</p>
+          <div class="form-row">
+            <input type="text" id="player-name-input" placeholder="Enter your name..." maxlength="15" autocomplete="off">
+            <button id="btn-submit-score" class="btn primary-btn py-2">Submit</button>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button id="btn-play-again" class="btn primary-btn">Play Again</button>
+          <button id="btn-view-review" class="btn secondary-btn">Review Answers</button>
+          <button id="btn-result-menu" class="btn secondary-btn">Main Menu</button>
+        </div>
+
+        <!-- Answers Review Section -->
+        <div id="review-section" class="review-section hidden">
+          <h3>Detailed Review</h3>
+          <div id="review-list" class="review-list">
+            <!-- Review items inserted dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 4: LEADERBOARD SCREEN -->
+      <section id="screen-leaderboard" class="screen">
+        <div class="section-header">
+          <h2>🏆 Hall of Fame</h2>
+          <p>Behold the top minds of Quiz Quest.</p>
+        </div>
+
+        <!-- Leaderboard Category Filter Tabs -->
+        <div class="tabs-container" id="leaderboard-tabs">
+          <button class="tab-btn active" data-category="all">All</button>
+          <button class="tab-btn" data-category="general">General</button>
+          <button class="tab-btn" data-category="science">Science</button>
+          <button class="tab-btn" data-category="history">History</button>
+          <button class="tab-btn" data-category="geography">Geography</button>
+          <button class="tab-btn" data-category="popculture">Pop Culture</button>
+          <button class="tab-btn" data-category="webdev">Web Dev</button>
+        </div>
+
+        <!-- Leaderboard Table Container -->
+        <div class="table-container glass-panel">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th class="w-16">Rank</th>
+                <th>Player</th>
+                <th>Category</th>
+                <th class="text-center">Difficulty</th>
+                <th class="text-right">Score</th>
+                <th class="text-right">Accuracy</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-tbody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+          <div id="leaderboard-empty" class="empty-state hidden">
+            <span class="empty-icon">🏜️</span>
+            <p>No high scores registered for this category yet. Be the first!</p>
+          </div>
+        </div>
+
+        <div class="screen-footer-actions">
+          <button id="btn-clear-scores" class="btn text-danger-btn">Clear All Scores</button>
+          <button id="btn-leaderboard-back" class="btn secondary-btn">Back to Menu</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 5: CUSTOM QUIZ BUILDER SCREEN -->
+      <section id="screen-creator" class="screen">
+        <div class="section-header">
+          <h2>🛠️ Custom Quiz Creator</h2>
+          <p>Create your custom trivia challenge and save it to your browser storage.</p>
+        </div>
+
+        <div class="creator-container">
+          <!-- Left Panel: Quiz Meta & Question List -->
+          <div class="creator-sidebar glass-panel">
+            <h3>Quiz Information</h3>
+            <div class="form-group">
+              <label for="quiz-title">Quiz Title</label>
+              <input type="text" id="quiz-title" placeholder="e.g., Ultimate Javascript Quiz" maxlength="30">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="quiz-category">Category</label>
+                <select id="quiz-category">
+                  <option value="general">General Knowledge</option>
+                  <option value="science">Science & Tech</option>
+                  <option value="history">History</option>
+                  <option value="geography">Geography</option>
+                  <option value="popculture">Pop Culture</option>
+                  <option value="webdev">Web Dev</option>
+                </select>
+              </div>
+              <div class="form-group flex-1">
+                <label for="quiz-difficulty">Difficulty</label>
+                <select id="quiz-difficulty">
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="custom-questions-header mt-6">
+              <h3>Questions List (<span id="creator-questions-count">0</span>)</h3>
+            </div>
+            <div class="creator-questions-list" id="creator-questions-list">
+              <!-- List of added questions with delete buttons -->
+              <p class="empty-questions-msg">No questions added yet. Add at least 3 questions to save your quiz.</p>
+            </div>
+
+            <div class="creator-actions mt-6">
+              <button id="btn-save-quiz" class="btn primary-btn w-full">💾 Save Custom Quiz</button>
+              <button id="btn-creator-back" class="btn secondary-btn w-full mt-2">Cancel & Exit</button>
+            </div>
+          </div>
+
+          <!-- Right Panel: Add/Edit Question Form -->
+          <div class="creator-editor glass-panel">
+            <h3>Add New Question</h3>
+            <div class="form-group">
+              <label for="question-prompt">Question Text</label>
+              <textarea id="question-prompt" placeholder="Write your question here..." rows="3"></textarea>
+            </div>
+
+            <div class="options-inputs-grid">
+              <div class="form-group option-input-group">
+                <label for="opt-0">Option A</label>
+                <input type="text" id="opt-0" placeholder="Enter option A...">
+              </div>
+              <div class="form-group option-input-group">
+                <label for="opt-1">Option B</label>
+                <input type="text" id="opt-1" placeholder="Enter option B...">
+              </div>
+              <div class="form-group option-input-group">
+                <label for="opt-2">Option C</label>
+                <input type="text" id="opt-2" placeholder="Enter option C...">
+              </div>
+              <div class="form-group option-input-group">
+                <label for="opt-3">Option D</label>
+                <input type="text" id="opt-3" placeholder="Enter option D...">
+              </div>
+            </div>
+
+            <div class="form-row mt-4">
+              <div class="form-group flex-1">
+                <label for="correct-opt-select">Correct Answer</label>
+                <select id="correct-opt-select">
+                  <option value="0">Option A</option>
+                  <option value="1">Option B</option>
+                  <option value="2">Option C</option>
+                  <option value="3">Option D</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="question-explanation">Explanation (Optional)</label>
+              <textarea id="question-explanation" placeholder="Provide context or explanation for the correct answer..." rows="2"></textarea>
+            </div>
+
+            <button id="btn-add-question" class="btn primary-btn mt-6 w-full">➕ Add Question to Quiz</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer branding -->
+    <footer class="app-footer">
+      <p>&copy; 2026 Quiz Quest Trivia. Built with HTML, CSS, and JS Synth.</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript Scripts -->
+  <script src="questions.js"></script>
+  <script src="sound.js"></script>
+  <script src="confetti.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
